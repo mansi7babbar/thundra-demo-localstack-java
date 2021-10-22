@@ -15,12 +15,7 @@ import org.apache.log4j.Logger;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * @author tolga
- */
 public class ClientBuilder {
-
-    private static final Logger logger = LogManager.getLogger(ClientBuilder.class);
 
     public static final String AWS_REGION = System.getenv("AWS_REGION");
     public static final String LOCALSTACK_HOSTNAME = System.getenv("LOCALSTACK_HOSTNAME");
@@ -28,6 +23,7 @@ public class ClientBuilder {
             LOCALSTACK_HOSTNAME != null
                     ? "http://" + LOCALSTACK_HOSTNAME + ":4566"
                     : null;
+    private static final Logger logger = LogManager.getLogger(ClientBuilder.class);
 
     private ClientBuilder() {
         throw new UnsupportedOperationException("Not create instance from utility class");
