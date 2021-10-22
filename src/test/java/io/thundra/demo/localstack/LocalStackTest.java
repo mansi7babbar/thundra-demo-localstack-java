@@ -39,7 +39,7 @@ public abstract class LocalStackTest {
     void setup() throws Exception {
         LambdaServer.reset();
 
-//        executeCommand("make start-embedded");
+        executeCommand("make start-embedded");
         String result = executeCommand("awslocal apigateway get-rest-apis");
         JSONObject object = new JSONObject(result);
         JSONArray array = object.getJSONArray("items");
@@ -65,8 +65,11 @@ public abstract class LocalStackTest {
         } else {
             builder.command("sh", "-c", command);
         }
+
+        builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+        builder.redirectError(ProcessBuilder.Redirect.INHERIT);
         Process process = builder.start();
-        process.waitFor();
+        process.waitFor(); //Creating localstack instance - ISSUE with Windows
 
         StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
