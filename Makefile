@@ -7,6 +7,7 @@ export START_WEB ?= 1
 export THUNDRA_APIKEY = 8ae270b5-30c4-4daf-8211-4987e7c31de1
 export THUNDRA_AGENT_TEST_PROJECT_ID = 81de7b9f-f432-4264-8f90-b23549363d02
 export THUNDRA_AGENT_TRACE_INSTRUMENT_TRACEABLECONFIG = io.thundra.demo.localstack.*.*[traceLineByLine=true]
+export PYTHONIOENCODING=utf-8
 
 usage:              ## Show this help
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
