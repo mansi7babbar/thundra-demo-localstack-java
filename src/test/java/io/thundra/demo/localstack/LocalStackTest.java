@@ -65,11 +65,8 @@ public abstract class LocalStackTest {
         } else {
             builder.command("sh", "-c", command);
         }
-
-        builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-        builder.redirectError(ProcessBuilder.Redirect.INHERIT);
         Process process = builder.start();
-        process.waitFor(); //Creating localstack instance - ISSUE with Windows
+        process.waitFor();
 
         StringBuilder output = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
