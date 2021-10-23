@@ -24,19 +24,22 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        env:
-          AWS_ACCESS_KEY_ID: test
-          AWS_SECRET_ACCESS_KEY: test
+
       # Runs a single command using the runners shell
+      - name: Configure AWS Credentials
+        run: |
+          mkdir -p ~/.aws
+          touch ~/.aws/credentials
+
+          echo "[default]
+          aws_access_key_id = test
+          aws_secret_access_key = test
+          region = us-east-1" > ~/.aws/credentials
       - name: Set up JDK 1.8
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '8'
-      - name: Export AWS access key
-        run: export AWS_ACCESS_KEY_ID="test"
-      - name: Export AWS secret
-        run: export AWS_SECRET_ACCESS_KEY="test"
       - name: Update apt
         run: sudo apt update
       - name: Install Python
