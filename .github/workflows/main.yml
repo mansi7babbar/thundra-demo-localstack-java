@@ -49,6 +49,8 @@ jobs:
           sudo apt update
           apt-cache policy docker-ce
           sudo apt install docker-ce
+      - name: Install dependencies
+        run: sudo make install
       - name: Run make test
         run: make test
       - name: Thundra Maven Test Instrumentation
