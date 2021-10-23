@@ -34,9 +34,9 @@ jobs:
           distribution: 'adopt'
           java-version: '8'
       - name: Export AWS access key
-        run: export AWS_ACCESS_KEY_ID = test
+        run: export AWS_ACCESS_KEY_ID="test"
       - name: Export AWS secret
-        run: export AWS_SECRET_ACCESS_KEY = test
+        run: export AWS_SECRET_ACCESS_KEY="test"
       - name: Update apt
         run: sudo apt update
       - name: Install Python
