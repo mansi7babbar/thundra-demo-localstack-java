@@ -30,7 +30,7 @@ public abstract class LocalStackTest {
 
     protected String lambdaUrl;
 
-    @BeforeAll
+    @BeforeAll 
     static void beforeAll() throws Exception {
         LambdaServer.start();
     }
