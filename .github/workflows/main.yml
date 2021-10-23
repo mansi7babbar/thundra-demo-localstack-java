@@ -24,7 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      - name: Unit Test
+        env:
+          AWS_ACCESS_KEY_ID: test
+          AWS_SECRET_ACCESS_KEY: test
       # Runs a single command using the runners shell
       - name: Set up JDK 1.8
         uses: actions/setup-java@v2
@@ -49,12 +52,6 @@ jobs:
           sudo apt update
           apt-cache policy docker-ce
           sudo apt install docker-ce
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: test
-          aws-secret-access-key: test
-          aws-region: us-east-1
       - name: Install dependencies
         run: sudo make install
       - name: Run make test
