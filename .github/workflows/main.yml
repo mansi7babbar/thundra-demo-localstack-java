@@ -49,6 +49,12 @@ jobs:
           sudo apt update
           apt-cache policy docker-ce
           sudo apt install docker-ce
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: test
+          aws-secret-access-key: test
+          aws-region: us-east-1
       - name: Install dependencies
         run: sudo make install
       - name: Run make test
