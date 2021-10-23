@@ -22,12 +22,33 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
       # Runs a single command using the runners shell
       - name: Set up JDK 1.8
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '8'
+      - name: Update apt
+        run: sudo apt update
+      - name: Install Python
+        run: sudo apt install python3
+      - name: Install pip
+        run: sudo apt install pip3
+      - name: Install npm
+        run: sudo apt install npm
+      - name: Install make
+        run: sudo apt install make
+      - name: Install Docker
+        run: |
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+          sudo apt update
+          apt-cache policy docker-ce
+          sudo apt install docker-ce
       - name: Thundra Maven Test Instrumentation
         uses: thundra-io/thundra-maven-test-action@v1
         with:
