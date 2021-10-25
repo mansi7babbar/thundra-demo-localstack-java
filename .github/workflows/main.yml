@@ -26,16 +26,45 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
+      - name: Configure AWS Credentials
+        run: |
+          mkdir -p ~/.aws
+          touch ~/.aws/credentials
+
+          echo "[default]
+          aws_access_key_id = test
+          aws_secret_access_key = test
+          region = us-east-1" > ~/.aws/credentials
       - name: Set up JDK 1.8
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '8'
+      - name: Update apt
+        run: sudo apt update
+      - name: Install Python
+        run: sudo apt install python3
+      - name: Install pip
+        run: sudo apt install python3-pip
+      - name: Install npm
+        run: sudo apt install npm
+      - name: Install make
+        run: sudo apt install make
+      - name: Install Docker
+        run: |
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+          sudo apt update
+          apt-cache policy docker-ce
+          sudo apt install docker-ce
+      - name: Install dependencies
+        run: sudo make install
+      - name: Run make test
+        run: make test
       - name: Thundra Maven Test Instrumentation
         uses: thundra-io/thundra-maven-test-action@v1
         with:
           apikey: 8ae270b5-30c4-4daf-8211-4987e7c31de1
           project_id: 33f46f6a-eda6-4a01-a107-cadc95b35ff3
           command: mvn clean install
-      - name: Run make test
-        run: make test    
