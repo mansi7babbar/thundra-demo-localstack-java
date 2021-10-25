@@ -25,14 +25,14 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
         put("content-type", "application/json");
     }};
     private final ObjectMapper mapper = new ObjectMapper();
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
     JSONParser parser = new JSONParser();
     Gson gson = new Gson();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
-            System.out.println("MB handleRequest "+request);
+            System.out.println("MB handleRequest " + request);
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
                 JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
@@ -41,28 +41,29 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 if (insertUserResponse) {
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody("Successfully inserted User");
+                            .withBody(mapper.writeValueAsString(user));
                 } else {
                     return new APIGatewayProxyResponseEvent().withStatusCode(400)
                             .withHeaders(headers)
-                            .withBody("Failed to insert User");
+                            .withBody(mapper.writeValueAsString(user));
                 }
             } else if ("/user".equals(request.getPath()) && "GET".equals(request.getHttpMethod())) {
                 System.out.println("MB handleRequest GET");
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
-                System.out.println("MB getUserResponse "+getUserResponse);
+                User defaultUser = new User(1, "Mansi", "abc", "xyz");
+                System.out.println("MB getUserResponse " + getUserResponse);
                 if (getUserResponse != null) {
                     System.out.println("MB getUserResponse not null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody(mapper.writeValueAsString(getUserResponse.toString()));
+                            .withBody(mapper.writeValueAsString(getUserResponse));
                 } else {
                     System.out.println("MB getUserResponse null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody(mapper.writeValueAsString(new User(1, "Mansi", "abc", "xyz")));
+                            .withBody(mapper.writeValueAsString(defaultUser));
                 }
             } else {
                 return new APIGatewayProxyResponseEvent().
