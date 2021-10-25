@@ -50,11 +50,14 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
+                System.out.println("MB getUserResponse "+getUserResponse);
                 if (getUserResponse != null) {
+                    System.out.println("MB getUserResponse not null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
                             .withBody(getUserResponse.toString());
                 } else {
+                    System.out.println("MB getUserResponse null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
                             .withBody(mapper.writeValueAsString(new User(1, "Mansi", "abc", "xyz")));
