@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserAppTest extends LocalStackTest {
     @Test
     public void testCreateNewRequest() throws IOException {
-        ResponseEntity<User> responseEntity = get(lambdaUrl, User.class);
+        ResponseEntity<String> responseEntity = get(lambdaUrl, String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.SC_NOT_FOUND);
     }
 }
