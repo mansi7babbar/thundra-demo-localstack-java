@@ -121,6 +121,9 @@ public abstract class LocalStackTest {
     private <R> ResponseEntity<R> doRequest(HttpUriRequest request, Class<R> responseType) throws IOException {
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         System.out.println("MB doRequest - httpResponse "+httpResponse);
+        System.out.println("MB doRequest - httpResponse getStatusLine "+httpResponse.getStatusLine());
+        System.out.println("MB doRequest - httpResponse getStatusCode "+httpResponse.getStatusLine().getStatusCode());
+        System.out.println("MB doRequest - httpResponse getEntity "+httpResponse.getEntity());
         R response = retrieveResourceFromResponse(httpResponse, responseType);
         System.out.println("MB doRequest - retrieveResourceFromResponse "+response);
         System.out.println("MB doRequest - responseEntity "+new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response));
