@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author tolga
  */
-public class UserAppTest extends LocalStackTest {
+public class AppRequestLocalStackTest extends LocalStackTest {
 
     @Test
     public void testCreateNewRequest() throws IOException {
