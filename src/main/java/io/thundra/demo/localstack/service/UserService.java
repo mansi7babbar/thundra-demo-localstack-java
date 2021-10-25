@@ -8,10 +8,6 @@ import java.util.Map;
 public class UserService {
     UserRepository userRepository = new UserRepository();
 
-    public UserService() {
-        userRepository.createTable();
-    }
-
     public Boolean insertUser(User user) {
         return userRepository.insertItem(user);
     }

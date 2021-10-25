@@ -9,7 +9,7 @@ custom:
   region: ${opt:region, "us-east-1"}
   artifact: ${opt:artifact, "./target/thundra-demo-localstack.jar"}
   deploymentBucketName: ${self:service}-deployment-bucket-${self:custom.stage}
-  tableName: ${self:service}-users
+  tableName: Users_Table
   localstack:
     stages:
       # list of stages for which the plugin should be enabled
