@@ -10,9 +10,6 @@ custom:
   artifact: ${opt:artifact, "./target/thundra-demo-localstack.jar"}
   deploymentBucketName: ${self:service}-deployment-bucket-${self:custom.stage}
   tableName: ${self:service}-users
-  bucketName: ${self:service}-archive-bucket
-  queueName: ${self:service}-request-queue
-  topicName: ${self:service}-request-topic
   localstack:
     stages:
       # list of stages for which the plugin should be enabled
@@ -33,12 +30,7 @@ provider:
   deploymentBucket:
     name: ${self:custom.deploymentBucketName}
   environment:
-    APP_REQUESTS_TABLE_NAME: ${self:custom.tableName}
-    REQUEST_QUEUE_URL:
-      Ref: requestQueue
-    REQUEST_TOPIC_ARN:
-      Ref: requestTopic
-    ARCHIVE_BUCKET_NAME: ${self:custom.bucketName}
+    USER_TABLE_NAME: ${self:custom.tableName}
     THUNDRA_APIKEY: ${env:THUNDRA_APIKEY}
     THUNDRA_AGENT_LAMBDA_REPORT_REST_BASEURL: ${env:THUNDRA_AGENT_REPORT_REST_BASEURL:"https://collector.thundra.io/v1"}
     THUNDRA_AGENT_TRACE_INSTRUMENT_TRACEABLECONFIG: io.thundra.demo.localstack.*.*[traceLineByLine=true,methodModifiers=0x00000001|0x00000002]
@@ -57,19 +49,6 @@ functions:
             parameters:
               paths:
                 userid: true
-  backend_processRequest:
-    handler: io.thundra.demo.localstack.handler.Processing
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt: [ requestQueue, Arn ]
-  backend_archiveResult:
-    handler: io.thundra.demo.localstack.handler.Archive
-    events:
-      - sns:
-          arn:
-            Fn::GetAtt: [ requestTopic, Arn ]
-          topicName: ${self:custom.topicName}
 
 resources:
   Resources:
@@ -83,16 +62,3 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-    archiveBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.bucketName}
-    requestQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: ${self:custom.queueName}
-        VisibilityTimeout: 60
-    requestTopic:
-      Type: AWS::SNS::Topic
-      Properties:
-        TopicName: ${self:custom.topicName}
