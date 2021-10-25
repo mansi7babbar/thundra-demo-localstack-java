@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class UserAppTest {
+public abstract class UserAppTest extends LocalStackTest {
     @BeforeAll
     static void beforeAll() throws Exception {
         LambdaServer.start();
