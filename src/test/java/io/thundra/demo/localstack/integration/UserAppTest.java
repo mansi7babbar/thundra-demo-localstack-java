@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class UserAppLocalStackTest extends LocalStackTest {
+public abstract class UserAppTest extends LocalStackTest {
     @Test
     public void testCreateNewRequest() {
         assertThat(true);
