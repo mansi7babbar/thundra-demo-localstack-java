@@ -57,7 +57,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 } else {
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody(mapper.writeValueAsString(new User()));
+                            .withBody(mapper.writeValueAsString(new User(1, "Mansi", "abc", "xyz")));
                 }
             } else {
                 return new APIGatewayProxyResponseEvent().
