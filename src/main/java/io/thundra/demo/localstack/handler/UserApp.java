@@ -32,6 +32,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
+            System.out.println("MB handleRequest "+request);
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
                 JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
@@ -47,6 +48,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             .withBody("Failed to insert User");
                 }
             } else if ("/user".equals(request.getPath()) && "GET".equals(request.getHttpMethod())) {
+                System.out.println("MB handleRequest GET");
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
