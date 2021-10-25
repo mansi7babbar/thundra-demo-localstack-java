@@ -3,11 +3,18 @@ package io.thundra.demo.localstack.integration;
 import io.thundra.demo.localstack.LocalStackTest;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class UserAppTest extends LocalStackTest {
+/**
+ * @author tolga
+ */
+public class AppRequestLocalStackTest extends LocalStackTest {
+
     @Test
-    public void testCreateNewRequest() {
+    public void testCreateNewRequest() throws IOException {
         assertThat(true);
     }
+
 }
