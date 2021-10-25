@@ -52,7 +52,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             .withHeaders(headers)
                             .withBody(getUserResponse.toString());
                 } else {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(404)
+                    return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
                             .withBody("Failed to get User");
                 }
