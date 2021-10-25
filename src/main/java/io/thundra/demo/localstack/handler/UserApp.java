@@ -52,13 +52,13 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             .withHeaders(headers)
                             .withBody(getUserResponse.toString());
                 } else {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(400)
+                    return new APIGatewayProxyResponseEvent().withStatusCode(404)
                             .withHeaders(headers)
                             .withBody("Failed to get User");
                 }
             } else {
                 return new APIGatewayProxyResponseEvent().
-                        withStatusCode(404);
+                        withStatusCode(400);
             }
         } catch (ParseException e) {
             logger.error("Error occurred handling message. Exception is ", e);
