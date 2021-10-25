@@ -4,6 +4,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.thundra.demo.localstack.model.User;
 import io.thundra.demo.localstack.service.UserService;
@@ -25,6 +27,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
     private final UserService userService = new UserService();
     JSONParser parser = new JSONParser();
     Gson gson = new Gson();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
@@ -54,13 +57,13 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 } else {
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody("Failed to get User");
+                            .withBody(mapper.writeValueAsString(new User()));
                 }
             } else {
                 return new APIGatewayProxyResponseEvent().
                         withStatusCode(400);
             }
-        } catch (ParseException e) {
+        } catch (ParseException | JsonProcessingException e) {
             logger.error("Error occurred handling message. Exception is ", e);
             return new APIGatewayProxyResponseEvent().
                     withStatusCode(500).
