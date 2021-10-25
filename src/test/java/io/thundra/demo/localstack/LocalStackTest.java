@@ -96,10 +96,7 @@ public abstract class LocalStackTest {
     }
 
     protected <R> ResponseEntity<R> get(String path, Class<R> responseType) throws IOException {
-        System.out.println("MB get method - lambdaURL "+path);
-        System.out.println("MB get method - responseType "+responseType);
         HttpUriRequest request = new HttpGet(path);
-        System.out.println("MB get method - request "+request);
         return doRequest(request, responseType);
     }
 
@@ -120,10 +117,7 @@ public abstract class LocalStackTest {
 
     private <R> ResponseEntity<R> doRequest(HttpUriRequest request, Class<R> responseType) throws IOException {
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        System.out.println("MB doRequest - httpResponse "+httpResponse);
         R response = retrieveResourceFromResponse(httpResponse, responseType);
-        System.out.println("MB doRequest - retrieveResourceFromResponse "+response);
-        System.out.println("MB doRequest - responseEntity "+new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response));
         return new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response);
     }
 
@@ -142,10 +136,8 @@ public abstract class LocalStackTest {
 
     public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
         String jsonFromResponse = EntityUtils.toString(response.getEntity());
-        System.out.println("MB retrieveResourceFromResponse - jsonFromResponse "+jsonFromResponse);
         ObjectMapper mapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        System.out.println("MB retrieveResourceFromResponse - ObjectMapper "+mapper);
         return mapper.readValue(jsonFromResponse, clazz);
     }
 
