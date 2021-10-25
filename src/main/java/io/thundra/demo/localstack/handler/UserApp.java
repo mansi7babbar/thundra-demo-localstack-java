@@ -24,10 +24,10 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
     private static final Map<String, String> headers = new HashMap<String, String>() {{
         put("content-type", "application/json");
     }};
-    private final UserService userService = new UserService();
+    private final ObjectMapper mapper = new ObjectMapper();
+    private UserService userService = new UserService();
     JSONParser parser = new JSONParser();
     Gson gson = new Gson();
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
@@ -57,7 +57,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                     System.out.println("MB getUserResponse not null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
-                            .withBody(getUserResponse.toString());
+                            .withBody(mapper.writeValueAsString(getUserResponse.toString()));
                 } else {
                     System.out.println("MB getUserResponse null");
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
