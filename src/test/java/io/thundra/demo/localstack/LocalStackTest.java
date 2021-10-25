@@ -21,9 +21,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * @author tolga
- */
 public abstract class LocalStackTest {
 
     protected static final int ASSERT_EVENTUALLY_TIMEOUT_SECS = 100;
@@ -171,5 +168,4 @@ public abstract class LocalStackTest {
         }
 
     }
-
 }
