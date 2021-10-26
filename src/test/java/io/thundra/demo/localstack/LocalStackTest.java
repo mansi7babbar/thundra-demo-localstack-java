@@ -25,11 +25,31 @@ public abstract class LocalStackTest {
 
     protected static final int ASSERT_EVENTUALLY_TIMEOUT_SECS = 100;
 
-    protected String lambdaUrl;
+    protected String getUserLambdaUrl;
+    protected String postUserLambdaUrl;
 
     @BeforeAll
     static void beforeAll() throws Exception {
         LambdaServer.start();
+    }
+
+    @AfterAll
+    static void afterAll() throws Exception {
+        LambdaServer.stop();
+    }
+
+    public static <T> T retrieveResourceFromResponse(HttpResponse response, TypeReference<T> clazz) throws IOException {
+        String jsonFromResponse = EntityUtils.toString(response.getEntity());
+        ObjectMapper mapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper.readValue(jsonFromResponse, clazz);
+    }
+
+    public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
+        String jsonFromResponse = EntityUtils.toString(response.getEntity());
+        ObjectMapper mapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper.readValue(jsonFromResponse, clazz);
     }
 
     @BeforeEach
@@ -41,17 +61,13 @@ public abstract class LocalStackTest {
         JSONObject object = new JSONObject(result);
         JSONArray array = object.getJSONArray("items");
         String restApiId = array.getJSONObject(0).getString("id");
-        lambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
+        getUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user/1";
+        postUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
     }
 
     @AfterEach
     void teardown() throws IOException, InterruptedException {
         executeCommand("docker stop $(docker ps -a -q --filter ancestor=localstack/localstack --format=\"{{.ID}}\")");
-    }
-
-    @AfterAll
-    static void afterAll() throws Exception {
-        LambdaServer.stop();
     }
 
     private String executeCommand(String command) throws IOException, InterruptedException {
@@ -129,20 +145,6 @@ public abstract class LocalStackTest {
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         R response = retrieveResourceFromResponse(httpResponse, responseType);
         return new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response);
-    }
-
-    public static <T> T retrieveResourceFromResponse(HttpResponse response, TypeReference<T> clazz) throws IOException {
-        String jsonFromResponse = EntityUtils.toString(response.getEntity());
-        ObjectMapper mapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(jsonFromResponse, clazz);
-    }
-
-    public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
-        String jsonFromResponse = EntityUtils.toString(response.getEntity());
-        ObjectMapper mapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(jsonFromResponse, clazz);
     }
 
     public class ResponseEntity<R> {

@@ -32,7 +32,6 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
         try {
-            System.out.println("MB handleRequest " + request);
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
                 JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
@@ -49,28 +48,24 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 //                } else {
 //                    return new APIGatewayProxyResponseEvent().withStatusCode(400)
 //                            .withHeaders(headers)
-//                            .withBody(mapper.writeValueAsString(user));
+//                            .withBody("Failed to create user!");
             } else if ("/user".equals(request.getPath()) && "GET".equals(request.getHttpMethod())) {
-                System.out.println("MB handleRequest GET");
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
                 User defaultUser = new User(1, "Mansi", "abc", "xyz");
-                System.out.println("MB getUserResponse " + getUserResponse);
                 return new APIGatewayProxyResponseEvent().
                         withStatusCode(200).
                         withHeaders(headers).
                         withBody(mapper.writeValueAsString(defaultUser));
 //                if (getUserResponse != null) {
-//                    System.out.println("MB getUserResponse not null");
 //                    return new APIGatewayProxyResponseEvent().withStatusCode(200)
 //                            .withHeaders(headers)
 //                            .withBody(mapper.writeValueAsString(getUserResponse));
 //                } else {
-//                    System.out.println("MB getUserResponse null");
 //                    return new APIGatewayProxyResponseEvent().withStatusCode(200)
 //                            .withHeaders(headers)
-//                            .withBody(mapper.writeValueAsString(defaultUser));
+//                            .withBody("Failed to get user!");
 //                }
             } else {
                 return new APIGatewayProxyResponseEvent().
