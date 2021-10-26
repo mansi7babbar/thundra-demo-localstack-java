@@ -65,7 +65,7 @@ jobs:
       - name: List DynamoDB tables
         run: |
           aws dynamodb list-tables --region us-east-1 --endpoint http://localhost:4566
-          aws dynamodb describe-table --table-name thundra-demo-localstack-users --region us-east-1 --endpoint http://localhost:4566
+          aws dynamodb describe-table --table-name Users_Table --region us-east-1 --endpoint http://localhost:4566
       - name: Run tests
         run: make test
       - name: Thundra Maven Test Instrumentation
