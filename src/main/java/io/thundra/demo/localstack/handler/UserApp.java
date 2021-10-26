@@ -36,7 +36,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
                 JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
-                User user = gson.fromJson(requestBody.toString(), User.class);
+                User user = objectMapper.readValue(request.getBody(), User.class);
                 Boolean insertUserResponse = userService.insertUser(user);
                 return new APIGatewayProxyResponseEvent().
                         withStatusCode(200).
