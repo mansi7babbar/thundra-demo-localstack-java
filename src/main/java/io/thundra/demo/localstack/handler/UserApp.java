@@ -17,6 +17,7 @@ import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -49,7 +50,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 //                    return new APIGatewayProxyResponseEvent().withStatusCode(400)
 //                            .withHeaders(headers)
 //                            .withBody("Failed to create user!");
-            } else if ("/user".equals(request.getPath()) && "GET".equals(request.getHttpMethod())) {
+            } else if (Pattern.matches("/user/*",request.getPath()) && "GET".equals(request.getHttpMethod())) {
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
