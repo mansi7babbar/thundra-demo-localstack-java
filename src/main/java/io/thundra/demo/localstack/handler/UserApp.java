@@ -37,8 +37,8 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             withBody(mapper.writeValueAsString(user));
                 } else {
                     return new APIGatewayProxyResponseEvent().withStatusCode(400)
-                            .withHeaders(headers)
-                            .withBody("Failed to create user!");
+                            .withHeaders(headers);
+//                            .withBody("Failed to create user!");
                 }
             } else if (Pattern.matches("/user/\\d*", request.getPath()) && "GET".equals(request.getHttpMethod())) {
                 Map<String, String> pathParameters = request.getPathParameters();
@@ -50,8 +50,8 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             .withBody(mapper.writeValueAsString(getUserResponse));
                 } else {
                     return new APIGatewayProxyResponseEvent().withStatusCode(400)
-                            .withHeaders(headers)
-                            .withBody("Failed to get user!");
+                            .withHeaders(headers);
+//                            .withBody("Failed to get user!");
                 }
             } else {
                 return new APIGatewayProxyResponseEvent().
