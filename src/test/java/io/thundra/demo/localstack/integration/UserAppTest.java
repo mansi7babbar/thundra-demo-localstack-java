@@ -12,6 +12,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserAppTest extends LocalStackTest {
+
     @Test
     public void testGetUserRequest() throws IOException {
         ResponseEntity<User> getUser = get(lambdaUrl + "/1", User.class);
