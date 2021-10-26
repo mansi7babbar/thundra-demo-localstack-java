@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.thundra.demo.localstack.model.User;
@@ -13,7 +12,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +23,8 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
     private static final Map<String, String> headers = new HashMap<String, String>() {{
         put("content-type", "application/json");
     }};
-    private final ObjectMapper mapper = new ObjectMapper();
     private final UserService userService = new UserService();
+    ObjectMapper mapper = new ObjectMapper();
     JSONParser parser = new JSONParser();
     Gson gson = new Gson();
 
@@ -36,7 +34,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
                 JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
-                User user = objectMapper.readValue(request.getBody(), User.class);
+                User user = mapper.readValue(request.getBody(), User.class);
                 Boolean insertUserResponse = userService.insertUser(user);
                 return new APIGatewayProxyResponseEvent().
                         withStatusCode(200).
@@ -50,7 +48,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
 //                    return new APIGatewayProxyResponseEvent().withStatusCode(400)
 //                            .withHeaders(headers)
 //                            .withBody("Failed to create user!");
-            } else if (Pattern.matches("/user/\\d*",request.getPath()) && "GET".equals(request.getHttpMethod())) {
+            } else if (Pattern.matches("/user/\\d*", request.getPath()) && "GET".equals(request.getHttpMethod())) {
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
 //                User getUserResponse = userService.getUser(userID);
@@ -72,11 +70,11 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 return new APIGatewayProxyResponseEvent().
                         withStatusCode(404);
             }
-        } catch (JsonProcessingException | ParseException e) {
-            logger.error("Error occurred handling message. Exception is ", e);
+        } catch (Exception exception) {
+            logger.error("Error occurred handling message. Exception is ", exception);
             return new APIGatewayProxyResponseEvent().
                     withStatusCode(500).
-                    withBody(e.getMessage());
+                    withBody(exception.getMessage());
         }
     }
 }
