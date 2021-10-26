@@ -33,7 +33,6 @@ public class UserService {
         } catch (Exception e) {
             System.out.println("Exception occurred while inserting user " + e.getMessage());
             return false;
-
         }
     }
 
