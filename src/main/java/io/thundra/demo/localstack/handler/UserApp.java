@@ -31,13 +31,15 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 User user = mapper.readValue(request.getBody(), User.class);
                 Boolean insertUserResponse = userService.insertUser(user);
                 if (insertUserResponse) {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(200).
-                            withHeaders(headers).
-                            withBody(mapper.writeValueAsString(user));
+                    return new APIGatewayProxyResponseEvent()
+                            .withStatusCode(200)
+                            .withHeaders(headers)
+                            .withBody(mapper.writeValueAsString(user));
                 } else {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(400);
-                            // .withHeaders(headers);
-//                            .withBody("Failed to create user!");
+                    return new APIGatewayProxyResponseEvent()
+                            .withStatusCode(400)
+                            .withHeaders(headers)
+                            .withBody(mapper.writeValueAsString(user));
                 }
             } else if (Pattern.matches("/user/\\d*", request.getPath()) && "GET".equals(request.getHttpMethod())) {
                 Map<String, String> pathParameters = request.getPathParameters();
@@ -45,23 +47,25 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 User getUserResponse = userService.getUser(userID);
                 User defaultUser = new User(1, "test", "test", "test");
                 if (getUserResponse != null) {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(200)
+                    return new APIGatewayProxyResponseEvent()
+                            .withStatusCode(200)
                             .withHeaders(headers)
                             .withBody(mapper.writeValueAsString(getUserResponse));
                 } else {
-                    return new APIGatewayProxyResponseEvent().withStatusCode(400);
-                            // .withHeaders(headers)
-                            // .withBody(mapper.writeValueAsString(defaultUser));
+                    return new APIGatewayProxyResponseEvent()
+                            .withStatusCode(400);
+                    // .withHeaders(headers)
+                    // .withBody(mapper.writeValueAsString(defaultUser));
                 }
             } else {
-                return new APIGatewayProxyResponseEvent().
-                        withStatusCode(404);
+                return new APIGatewayProxyResponseEvent()
+                        .withStatusCode(404);
             }
         } catch (Exception exception) {
             logger.error("Error occurred handling message. Exception is ", exception);
-            return new APIGatewayProxyResponseEvent().
-                    withStatusCode(500).
-                    withBody(exception.getMessage());
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(500)
+                    .withBody(exception.getMessage());
         }
     }
 }
