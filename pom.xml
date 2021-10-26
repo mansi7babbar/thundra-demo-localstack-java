@@ -136,6 +136,12 @@
         </dependency>
         <dependency>
             <groupId>io.thundra.agent</groupId>
+            <artifactId>thundra-agent-api-trace</artifactId>
+            <version>${thundra.agent.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.thundra.agent</groupId>
             <artifactId>thundra-agent-bootstrap</artifactId>
             <version>${thundra.agent.version}</version>
             <scope>test</scope>
