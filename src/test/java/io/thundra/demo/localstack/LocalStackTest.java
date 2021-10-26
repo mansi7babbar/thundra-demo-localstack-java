@@ -23,10 +23,7 @@ import java.io.InputStreamReader;
 
 public abstract class LocalStackTest {
 
-    protected static final int ASSERT_EVENTUALLY_TIMEOUT_SECS = 100;
-
-    protected String getUserLambdaUrl;
-    protected String postUserLambdaUrl;
+    protected String lambdaUrl;
 
     @BeforeAll
     static void beforeAll() throws Exception {
@@ -61,8 +58,7 @@ public abstract class LocalStackTest {
         JSONObject object = new JSONObject(result);
         JSONArray array = object.getJSONArray("items");
         String restApiId = array.getJSONObject(0).getString("id");
-        getUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
-        postUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
+        lambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
     }
 
     @AfterEach
@@ -90,33 +86,7 @@ public abstract class LocalStackTest {
         return output.toString();
     }
 
-    protected void assertEventually(Runnable assertTask) {
-        long deadline = System.currentTimeMillis() + (ASSERT_EVENTUALLY_TIMEOUT_SECS * 1000);
-        AssertionError assertionError = null;
-        while (System.currentTimeMillis() < deadline) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            try {
-                assertTask.run();
-                assertionError = null;
-                break;
-            } catch (AssertionError e) {
-                assertionError = e;
-            }
-        }
-        if (assertionError != null) {
-            throw assertionError;
-        }
-    }
-
     protected <R> ResponseEntity<R> get(String path, Class<R> responseType) throws IOException {
-        HttpUriRequest request = new HttpGet(path);
-        return doRequest(request, responseType);
-    }
-
-    protected <R> ResponseEntity<R> get(String path, TypeReference<R> responseType) throws IOException {
         HttpUriRequest request = new HttpGet(path);
         return doRequest(request, responseType);
     }
@@ -130,18 +100,7 @@ public abstract class LocalStackTest {
         return doRequest(request, responseType);
     }
 
-    protected <R> ResponseEntity<R> post(String path, TypeReference<R> responseType) throws IOException {
-        HttpUriRequest request = new HttpPost(path);
-        return doRequest(request, responseType);
-    }
-
     private <R> ResponseEntity<R> doRequest(HttpUriRequest request, Class<R> responseType) throws IOException {
-        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        R response = retrieveResourceFromResponse(httpResponse, responseType);
-        return new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response);
-    }
-
-    private <R> ResponseEntity<R> doRequest(HttpUriRequest request, TypeReference<R> responseType) throws IOException {
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         R response = retrieveResourceFromResponse(httpResponse, responseType);
         return new ResponseEntity<>(httpResponse.getStatusLine().getStatusCode(), response);
