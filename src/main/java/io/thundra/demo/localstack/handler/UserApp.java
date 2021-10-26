@@ -10,7 +10,6 @@ import io.thundra.demo.localstack.model.User;
 import io.thundra.demo.localstack.service.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.util.HashMap;
@@ -33,7 +32,8 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
         try {
             logger.info("Request --> " + request);
             if ("/user".equals(request.getPath()) && "POST".equals(request.getHttpMethod())) {
-                JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
+//                JSONObject requestBody = (JSONObject) parser.parse(request.getBody());
+//                User user = gson.fromJson(requestBody.toString(), User.class);
                 User user = mapper.readValue(request.getBody(), User.class);
                 Boolean insertUserResponse = userService.insertUser(user);
                 return new APIGatewayProxyResponseEvent().
