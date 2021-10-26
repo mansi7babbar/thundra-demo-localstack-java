@@ -110,6 +110,10 @@ public abstract class LocalStackTest {
         return doRequest(request, responseType);
     }
 
+    protected <R> ResponseEntity<R> post(HttpUriRequest request, Class<R> responseType) throws IOException {
+        return doRequest(request, responseType);
+    }
+
     protected <R> ResponseEntity<R> post(String path, TypeReference<R> responseType) throws IOException {
         HttpUriRequest request = new HttpPost(path);
         return doRequest(request, responseType);
