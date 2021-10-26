@@ -61,7 +61,7 @@ public abstract class LocalStackTest {
         JSONObject object = new JSONObject(result);
         JSONArray array = object.getJSONArray("items");
         String restApiId = array.getJSONObject(0).getString("id");
-        getUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user/1";
+        getUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
         postUserLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
     }
 
