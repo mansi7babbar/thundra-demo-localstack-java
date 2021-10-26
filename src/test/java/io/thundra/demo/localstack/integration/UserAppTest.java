@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserAppTest extends LocalStackTest {
     @Test
     public void testCreateNewRequest() throws IOException {
-        ResponseEntity<User> getUser = get(getUserLambdaUrl, User.class);
+        ResponseEntity<User> getUser = get(getUserLambdaUrl+"/1", User.class);
         assertThat(getUser.getStatusCode()).isEqualTo(HttpStatus.SC_OK); 
 
         HttpPost request = new HttpPost(postUserLambdaUrl);
