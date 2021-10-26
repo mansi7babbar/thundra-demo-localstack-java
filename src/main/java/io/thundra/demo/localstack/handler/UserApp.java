@@ -53,9 +53,9 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                             .withBody(mapper.writeValueAsString(getUserResponse));
                 } else {
                     return new APIGatewayProxyResponseEvent()
-                            .withStatusCode(400);
-                    // .withHeaders(headers)
-                    // .withBody(mapper.writeValueAsString(defaultUser));
+                            .withStatusCode(400)
+                            .withHeaders(headers)
+                            .withBody(mapper.writeValueAsString(defaultUser));
                 }
             } else {
                 return new APIGatewayProxyResponseEvent()
