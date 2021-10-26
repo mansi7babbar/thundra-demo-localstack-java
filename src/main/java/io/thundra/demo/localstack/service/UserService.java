@@ -45,7 +45,7 @@ public class UserService {
 
     public User getUser(int id) {
         try{
-            return dynamoDBMapper.load(User.class, requestId);
+            return dynamoDBMapper.load(User.class, id);
         }
         catch(Exception e){
             System.out.println("Exception occured in get user"+e.getMessage());
