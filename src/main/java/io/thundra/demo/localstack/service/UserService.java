@@ -3,13 +3,12 @@ package io.thundra.demo.localstack.service;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import io.thundra.agent.api.trace.annotations.Traced;
 import io.thundra.demo.localstack.model.User;
 
 import static io.thundra.demo.localstack.service.ClientBuilder.buildDynamoDB;
 
-import io.thundra.agent.api.trace.annotations.Traced;
-
-@Traced(traceLineByLine=true)
+@Traced(traceLineByLine = true)
 public class UserService {
 
     public static final String USERS_TABLE_NAME = System.getenv("USERS_TABLE_NAME");
