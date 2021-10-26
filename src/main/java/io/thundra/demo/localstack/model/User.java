@@ -1,5 +1,10 @@
 package io.thundra.demo.localstack.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
+@DynamoDBTable(tableName = "app-requests")
 public class User {
     private int id;
     private String name;
@@ -16,6 +21,7 @@ public class User {
         this.address = address;
     }
 
+    @DynamoDBHashKey(attributeName = "id")
     public int getId() {
         return id;
     }
@@ -24,6 +30,7 @@ public class User {
         this.id = id;
     }
 
+    @DynamoDBAttribute(attributeName = "name")
     public String getName() {
         return name;
     }
@@ -32,6 +39,7 @@ public class User {
         this.name = name;
     }
 
+    @DynamoDBAttribute(attributeName = "email")
     public String getEmail() {
         return email;
     }
@@ -40,6 +48,7 @@ public class User {
         this.email = email;
     }
 
+    @DynamoDBAttribute(attributeName = "address")
     public String getAddress() {
         return address;
     }
