@@ -18,13 +18,6 @@ public class UserAppTest extends LocalStackTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void testGetUserRequest() throws IOException {
-        ResponseEntity<User> getUserResponse = get(lambdaUrl + "/1", User.class);
-        System.out.println("MB - Testing getUserRequest " + getUserResponse);
-        assertThat(getUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
-    }
-
-    @Test
     public void testPostUserRequest() throws IOException {
         HttpPost postUserRequest = new HttpPost(lambdaUrl);
         User defaultUser = new User(1, "test", "test", "test");
@@ -34,5 +27,12 @@ public class UserAppTest extends LocalStackTest {
         ResponseEntity<User> postUserResponse = post(postUserRequest, User.class);
         System.out.println("MB - Testing postUserResponse " + postUserResponse.getBody());
         assertThat(postUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void testGetUserRequest() throws IOException {
+        ResponseEntity<User> getUserResponse = get(lambdaUrl + "/1", User.class);
+        System.out.println("MB - Testing getUserRequest " + getUserResponse);
+        assertThat(getUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 }
