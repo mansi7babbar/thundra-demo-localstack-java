@@ -23,16 +23,18 @@ public class UserAppTest extends LocalStackTest {
         User defaultUser = new User(1, "test", "test", "test");
         StringEntity userEntity = new StringEntity(mapper.writeValueAsString(defaultUser), ContentType.APPLICATION_JSON);
         postUserRequest.setEntity(userEntity);
-        System.out.println("MB - Testing postUserRequest " + postUserRequest);
         ResponseEntity<User> postUserResponse = post(postUserRequest, User.class);
-        System.out.println("MB - Testing postUserResponse " + postUserResponse.getBody());
         assertThat(postUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 
     @Test
     public void testGetUserRequest() throws IOException {
+        HttpPost postUserRequest = new HttpPost(lambdaUrl);
+        User defaultUser = new User(1, "test", "test", "test");
+        StringEntity userEntity = new StringEntity(mapper.writeValueAsString(defaultUser), ContentType.APPLICATION_JSON);
+        postUserRequest.setEntity(userEntity);
+        post(postUserRequest, User.class);
         ResponseEntity<User> getUserResponse = get(lambdaUrl + "/1", User.class);
-        System.out.println("MB - Testing getUserRequest " + getUserResponse);
         assertThat(getUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 }
