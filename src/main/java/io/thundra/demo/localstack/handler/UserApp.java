@@ -31,8 +31,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 User user = mapper.readValue(request.getBody(), User.class);
                 Boolean insertUserResponse = userService.insertUser(user);
                 if (insertUserResponse) {
-                    return new APIGatewayProxyResponseEvent().
-                            withStatusCode(200).
+                    return new APIGatewayProxyResponseEvent().withStatusCode(200).
                             withHeaders(headers).
                             withBody(mapper.writeValueAsString(user));
                 } else {
@@ -44,7 +43,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
-                User defaultUser = new User(1,"test","test","test");
+                User defaultUser = new User(1, "test", "test", "test");
                 if (getUserResponse != null) {
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)

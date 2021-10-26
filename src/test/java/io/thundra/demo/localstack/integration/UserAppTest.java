@@ -27,7 +27,7 @@ public class UserAppTest extends LocalStackTest {
     @Test
     public void testPostUserRequest() throws IOException {
         HttpPost postUserRequest = new HttpPost(lambdaUrl);
-        User defaultUser = new User(1, "Mansi", "abc", "xyz");
+        User defaultUser = new User(1, "test", "test", "test");
         StringEntity userEntity = new StringEntity(mapper.writeValueAsString(defaultUser), ContentType.APPLICATION_JSON);
         postUserRequest.setEntity(userEntity);
         System.out.println("MB - Testing postUserRequest " + postUserRequest);
