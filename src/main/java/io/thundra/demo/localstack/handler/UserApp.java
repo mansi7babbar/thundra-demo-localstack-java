@@ -44,7 +44,7 @@ public class UserApp implements RequestHandler<APIGatewayProxyRequestEvent, APIG
                 Map<String, String> pathParameters = request.getPathParameters();
                 int userID = Integer.parseInt(pathParameters.get("userid"));
                 User getUserResponse = userService.getUser(userID);
-                User defaultUser = new User();
+                User defaultUser = new User(1,"test","test","test");
                 if (getUserResponse != null) {
                     return new APIGatewayProxyResponseEvent().withStatusCode(200)
                             .withHeaders(headers)
