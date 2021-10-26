@@ -15,7 +15,7 @@ public class UserAppTest extends LocalStackTest {
     @Test
     public void testCreateNewRequest() throws IOException {
         ResponseEntity<User> getUser = get(getUserLambdaUrl, User.class);
-        assertThat(getUser.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
+        assertThat(getUser.getStatusCode()).isEqualTo(HttpStatus.SC_OK); 
 
 //        HttpPost request = new HttpPost(postUserLambdaUrl);
 //        request.setHeader("content-type", "application/json");
