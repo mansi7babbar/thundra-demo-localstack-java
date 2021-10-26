@@ -16,6 +16,7 @@ public class UserAppTest extends LocalStackTest {
     @Test
     public void testGetUserRequest() throws IOException {
         ResponseEntity<User> getUser = get(lambdaUrl + "/1", User.class);
+        System.out.println("MB - Testing getUserRequest " + getUser);
         assertThat(getUser.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 
@@ -25,6 +26,7 @@ public class UserAppTest extends LocalStackTest {
         User defaultUser = new User(1, "Mansi", "abc", "xyz");
         StringEntity userEntity = new StringEntity(defaultUser.toString());
         request.setEntity(userEntity);
+        System.out.println("MB - Testing postUserRequest " + request);
         ResponseEntity<User> postUser = post(request, User.class);
         assertThat(postUser.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
