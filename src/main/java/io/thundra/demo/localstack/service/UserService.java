@@ -36,15 +36,22 @@ public class UserService {
             dynamoDBMapper.save(user);
             return true;
         }catch(Exception e){
-            System.out.println("Exception occured in insert user"+e.getMessage())
+            System.out.println("Exception occured in insert user"+e.getMessage());
             return false;
 
         }
-        return userRepository.insertItem(user);
+        
     }
 
     public User getUser(int id) {
-        return dynamoDBMapper.load(User.class, requestId);
+        try{
+            return dynamoDBMapper.load(User.class, requestId);
+        }
+        catch(Exception e){
+            System.out.println("Exception occured in get user"+e.getMessage());
+            return false;
+
+        }
 
     }
 }
