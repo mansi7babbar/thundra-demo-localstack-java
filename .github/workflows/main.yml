@@ -62,9 +62,3 @@ jobs:
         run: sudo make install
       - name: Run tests
         run: make test
-      - name: Thundra Maven Test Instrumentation
-        uses: thundra-io/thundra-maven-test-action@v1
-        with:
-          apikey: 8ae270b5-30c4-4daf-8211-4987e7c31de1
-          project_id: 33f46f6a-eda6-4a01-a107-cadc95b35ff3
-          command: mvn clean install
