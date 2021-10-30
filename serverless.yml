@@ -1,4 +1,4 @@
-service: thundra-demo-localstack
+service: demo-lambda-application
 
 plugins:
   - serverless-deployment-bucket
