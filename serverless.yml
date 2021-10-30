@@ -48,14 +48,14 @@ functions:
           request:
             parameters:
               paths:
-                userid: true
+                restaurantid: true
 
 resources:
   Resources:
     restaurantDatabase:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.restaurantTableName}
+        TableName: ${self:custom.tableName}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: N

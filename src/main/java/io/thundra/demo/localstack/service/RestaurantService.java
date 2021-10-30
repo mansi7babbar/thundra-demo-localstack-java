@@ -31,7 +31,7 @@ public class RestaurantService {
             dynamoDBMapper.save(restaurant);
             return true;
         } catch (Exception e) {
-            System.out.println("Exception occurred while inserting user " + e.getMessage());
+            System.out.println("Exception occurred while inserting restaurant " + e.getMessage());
             return false;
         }
     }

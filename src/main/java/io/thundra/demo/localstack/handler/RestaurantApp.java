@@ -46,7 +46,7 @@ public class RestaurantApp implements RequestHandler<APIGatewayProxyRequestEvent
                 Map<String, String> pathParameters = request.getPathParameters();
                 int restaurantId = Integer.parseInt(pathParameters.get("restaurantid"));
                 Restaurant getRestaurantResponse = restaurantService.getRestaurant(restaurantId);
-                Restaurant defaultRestaurant = new Restaurant(1, "test", "test", new ArrayList<>());
+                Restaurant defaultRestaurant = new Restaurant(1, "test", "test_address", new ArrayList<>());
                 if (getRestaurantResponse != null) {
                     return new APIGatewayProxyResponseEvent()
                             .withStatusCode(200)
@@ -63,7 +63,7 @@ public class RestaurantApp implements RequestHandler<APIGatewayProxyRequestEvent
                         .withStatusCode(404);
             }
         } catch (Exception exception) {
-            logger.error("Error occurred handling message. Exception is ", exception);
+            logger.error("Error occurred while handling message. Exception is ", exception);
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(500)
                     .withBody(exception.getMessage());
