@@ -21,7 +21,6 @@ import java.io.InputStreamReader;
 
 public abstract class LocalStackTest {
 
-    protected String lambdaUrl;
     protected String restaurantLambdaUrl;
 
     @BeforeAll
