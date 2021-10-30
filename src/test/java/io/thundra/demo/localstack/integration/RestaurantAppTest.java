@@ -21,26 +21,26 @@ public class RestaurantAppTest extends LocalStackTest {
 
     @Test
     public void testPostRestaurantRequest() throws IOException {
-        HttpPost postUserRequest = new HttpPost(restaurantLambdaUrl);
+        HttpPost postRestaurantRequest = new HttpPost(restaurantLambdaUrl);
         List<String> cuisines = new ArrayList<>();
         cuisines.add("Chinese");
         Restaurant defaultRestaurant = new Restaurant(1, "test", "test", cuisines);
-        StringEntity userEntity = new StringEntity(mapper.writeValueAsString(defaultRestaurant), ContentType.APPLICATION_JSON);
-        postUserRequest.setEntity(userEntity);
-        ResponseEntity<Restaurant> postUserResponse = post(postUserRequest, Restaurant.class);
-        assertThat(postUserResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
+        StringEntity restaurantEntity = new StringEntity(mapper.writeValueAsString(defaultRestaurant), ContentType.APPLICATION_JSON);
+        postRestaurantRequest.setEntity(restaurantEntity);
+        ResponseEntity<Restaurant> postRestaurantResponse = post(postRestaurantRequest, Restaurant.class);
+        assertThat(postRestaurantResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 
     @Test
     public void testGetRestaurantRequest() throws IOException {
-        HttpPost postUserRequest = new HttpPost(restaurantLambdaUrl);
+        HttpPost postRestaurantRequest = new HttpPost(restaurantLambdaUrl);
         List<String> cuisines = new ArrayList<>();
         cuisines.add("Chinese");
         Restaurant defaultRestaurant = new Restaurant(1, "test", "test", cuisines);
-        StringEntity userEntity = new StringEntity(mapper.writeValueAsString(defaultRestaurant), ContentType.APPLICATION_JSON);
-        postUserRequest.setEntity(userEntity);
-        post(postUserRequest, Restaurant.class);
-        ResponseEntity<Restaurant> getRestaurantResponse = get(lambdaUrl + "/1", Restaurant.class);
+        StringEntity restaurantEntity = new StringEntity(mapper.writeValueAsString(defaultRestaurant), ContentType.APPLICATION_JSON);
+        postRestaurantRequest.setEntity(restaurantEntity);
+        post(postRestaurantRequest, Restaurant.class);
+        ResponseEntity<Restaurant> getRestaurantResponse = get(restaurantLambdaUrl + "/1", Restaurant.class);
         assertThat(getRestaurantResponse.getStatusCode()).isEqualTo(HttpStatus.SC_OK);
     }
 }
