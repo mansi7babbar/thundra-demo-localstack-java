@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 public abstract class LocalStackTest {
 
     protected String lambdaUrl;
+    protected String restaurantLambdaUrl;
 
     @BeforeAll
     static void beforeAll() throws Exception {
@@ -49,6 +50,7 @@ public abstract class LocalStackTest {
         JSONArray array = object.getJSONArray("items");
         String restApiId = array.getJSONObject(0).getString("id");
         lambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/user";
+        restaurantLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/restaurant";
     }
 
     @AfterEach
