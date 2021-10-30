@@ -9,8 +9,7 @@ custom:
   region: ${opt:region, "us-east-1"}
   artifact: ${opt:artifact, "./target/thundra-demo-localstack.jar"}
   deploymentBucketName: ${self:service}-deployment-bucket-${self:custom.stage}
-  tableName: Users_Table
-  restaurantTableName: Restaurants_Table
+  tableName: Restaurants_Table
   localstack:
     stages:
       # list of stages for which the plugin should be enabled
@@ -31,27 +30,12 @@ provider:
   deploymentBucket:
     name: ${self:custom.deploymentBucketName}
   environment:
-    USERS_TABLE_NAME: ${self:custom.tableName}
-    RESTAURANTS_TABLE_NAME: ${self:custom.restaurantTableName}
+    RESTAURANTS_TABLE_NAME: ${self:custom.tableName}
     THUNDRA_APIKEY: ${env:THUNDRA_APIKEY}
     THUNDRA_AGENT_LAMBDA_REPORT_REST_BASEURL: ${env:THUNDRA_AGENT_REPORT_REST_BASEURL:"https://collector.thundra.io/v1"}
     THUNDRA_AGENT_TRACE_INSTRUMENT_TRACEABLECONFIG: io.thundra.demo.localstack.*.*[traceLineByLine=true,methodModifiers=0x00000001|0x00000002]
 
 functions:
-  http_handleRequest:
-    handler: io.thundra.demo.localstack.handler.UserApp
-    events:
-      - http:
-          path: /user
-          method: post
-      - http:
-          path: /user/{userid}
-          method: get
-          request:
-            parameters:
-              paths:
-                userid: true
-
   http_handleRestaurantRequest:
     handler: io.thundra.demo.localstack.handler.RestaurantApp
     events:
@@ -68,17 +52,6 @@ functions:
 
 resources:
   Resources:
-    appDatabase:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.tableName}
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: N
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-
     restaurantDatabase:
       Type: AWS::DynamoDB::Table
       Properties:
