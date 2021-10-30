@@ -7,7 +7,7 @@ plugins:
 custom:
   stage: ${opt:stage, "local"}
   region: ${opt:region, "us-east-1"}
-  artifact: ${opt:artifact, "./target/thundra-demo-localstack.jar"}
+  artifact: ${opt:artifact, "./target/demo-lambda-application.jar"}
   deploymentBucketName: ${self:service}-deployment-bucket-${self:custom.stage}
   tableName: Restaurants_Table
   localstack:
@@ -48,7 +48,7 @@ functions:
           request:
             parameters:
               paths:
-                restaurantid: true
+                userid: true
 
 resources:
   Resources:
