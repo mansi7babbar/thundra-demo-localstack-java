@@ -1,11 +1,11 @@
-package io.thundra.demo.localstack.service;
+package org.com.demo.lambda.service;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
-import io.thundra.demo.localstack.model.Restaurant;
+import org.com.demo.lambda.model.Restaurant;
 
-import static io.thundra.demo.localstack.service.ClientBuilder.buildDynamoDB;
+import static org.com.demo.lambda.service.ClientBuilder.buildDynamoDB;
 
 public class RestaurantService {
 

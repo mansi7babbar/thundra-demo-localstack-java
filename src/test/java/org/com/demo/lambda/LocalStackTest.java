@@ -1,4 +1,4 @@
-package io.thundra.demo.localstack;
+package org.com.demo.lambda;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.thundra.agent.lambda.localstack.LambdaServer;

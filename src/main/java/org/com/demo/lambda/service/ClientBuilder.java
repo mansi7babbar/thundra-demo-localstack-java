@@ -1,4 +1,4 @@
-package io.thundra.demo.localstack.service;
+package org.com.demo.lambda.service;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

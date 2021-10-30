@@ -1,4 +1,4 @@
-package io.thundra.demo.localstack.model;
+package org.com.demo.lambda.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;

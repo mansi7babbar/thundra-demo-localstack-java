@@ -33,11 +33,11 @@ provider:
     RESTAURANTS_TABLE_NAME: ${self:custom.tableName}
     THUNDRA_APIKEY: ${env:THUNDRA_APIKEY}
     THUNDRA_AGENT_LAMBDA_REPORT_REST_BASEURL: ${env:THUNDRA_AGENT_REPORT_REST_BASEURL:"https://collector.thundra.io/v1"}
-    THUNDRA_AGENT_TRACE_INSTRUMENT_TRACEABLECONFIG: io.thundra.demo.localstack.*.*[traceLineByLine=true,methodModifiers=0x00000001|0x00000002]
+    THUNDRA_AGENT_TRACE_INSTRUMENT_TRACEABLECONFIG: org.com.demo.lambda.*.*[traceLineByLine=true,methodModifiers=0x00000001|0x00000002]
 
 functions:
   http_handleRestaurantRequest:
-    handler: io.thundra.demo.localstack.handler.RestaurantApp
+    handler: org.com.demo.lambda.handler.RestaurantApp
     events:
       - http:
           path: /restaurant

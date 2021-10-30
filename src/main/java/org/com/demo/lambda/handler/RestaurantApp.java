@@ -1,12 +1,12 @@
-package io.thundra.demo.localstack.handler;
+package org.com.demo.lambda.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.thundra.demo.localstack.model.Restaurant;
-import io.thundra.demo.localstack.service.RestaurantService;
+import org.com.demo.lambda.model.Restaurant;
+import org.com.demo.lambda.service.RestaurantService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

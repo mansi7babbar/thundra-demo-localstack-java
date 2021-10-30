@@ -1,8 +1,8 @@
-package io.thundra.demo.localstack.integration;
+package org.com.demo.lambda.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.thundra.demo.localstack.LocalStackTest;
-import io.thundra.demo.localstack.model.Restaurant;
+import org.com.demo.lambda.LocalStackTest;
+import org.com.demo.lambda.model.Restaurant;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
