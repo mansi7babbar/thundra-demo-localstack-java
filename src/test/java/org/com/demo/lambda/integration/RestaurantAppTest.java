@@ -1,12 +1,12 @@
 package org.com.demo.lambda.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.com.demo.lambda.LocalStackTest;
-import org.com.demo.lambda.model.Restaurant;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.com.demo.lambda.LocalStackTest;
+import org.com.demo.lambda.model.Restaurant;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
