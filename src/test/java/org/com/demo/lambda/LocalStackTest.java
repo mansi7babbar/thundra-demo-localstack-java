@@ -36,6 +36,7 @@ public abstract class LocalStackTest {
     public static <T> T retrieveResourceFromResponse(HttpResponse response, Class<T> clazz) throws IOException {
         String jsonFromResponse = EntityUtils.toString(response.getEntity());
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.readValue(jsonFromResponse, clazz);
     }
 
