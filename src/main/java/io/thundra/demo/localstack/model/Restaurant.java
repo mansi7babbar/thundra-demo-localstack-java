@@ -6,10 +6,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "Restaurants_Table")
 
-if(condition)
-   statement1;
-   statement2;
-   
 public class Restaurant {
     private int id;
     private String name;
