@@ -50,7 +50,7 @@ public abstract class LocalStackTest {
         JSONObject object = new JSONObject(result);
         JSONArray array = object.getJSONArray("items");
         String restApiId = array.getJSONObject(0).getString("id");
-        restaurantLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_restaurant_request_/restaurant";
+        restaurantLambdaUrl = "http://localhost:4566/restapis/" + restApiId + "/local/_user_request_/restaurant";
     }
 
     @AfterEach
