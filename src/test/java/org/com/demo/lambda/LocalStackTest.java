@@ -1,6 +1,7 @@
 package org.com.demo.lambda;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import io.thundra.agent.lambda.localstack.LambdaServer;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
